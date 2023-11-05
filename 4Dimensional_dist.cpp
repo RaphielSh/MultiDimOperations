@@ -1,8 +1,7 @@
 #include<iostream>
 #include<cmath>
 #include<iomanip>
-#include<array>
-#include<iterator>
+
 using namespace std;
 
 template<class T>
@@ -52,12 +51,12 @@ template<class T, int ARRAY_LEN>
 class NDIM{
 private:
 	int dimension;
-	array<T, ARRAY_LEN> arr;
+	T arr[ARRAY_LEN];
 public:
 	NDIM(){}
 
 	//setter
-	void setPoint(array<T, ARRAY_LEN> inp_arr){arr = inp_arr;}
+	void setPoint(double inp[ARRAY_LEN]){arr = inp;}
 
 	//getter
 
@@ -65,20 +64,23 @@ public:
 	//print
 	void printPoints(){
 		cout << "\nPoints: \n";
-		for(T i = arr.begin(); i != arr.end(); ++i){
-			cout << "Var " << i << "/" << ARRAY_LEN << " = " << *i;
+		for(int i = 0; i < ARRAY_LEN; i++){
+			cout << "Var " << i << "/" << ARRAY_LEN << " = " << arr[i];
 		}
 	}
 
 };
+
+// int lol(int dim){cin>> dim; return dim}
+
 int main(){
 
 	// FourD<double> point1;
 	// FourD<double> point2;
 
-	int dim = 5;
-	string tmp;
-	int arr_in;
+	const int dim;
+	double tmp;
+	double arr_in[dim];
 
 	// // point1.setPoint(3456.345345, 45723.3646, 45734.56734, 67823.235345);
 	// // point2.setPoint(34563.235346, 567567.457632, 235346.3452, 45745.3644356);
@@ -95,19 +97,18 @@ int main(){
 	// Dist(point1, point2);
 
 
-	// cout << "What dimensional you want to use? "; cin >> dim;
+	cout << "What dimensional you want to use? "; cin >> dim;
 
-	NDIM<int, dim> pnt1;
-	NDIM<int, dim> pnt2;
 
-	array<int, dim> arr;
+	NDIM<double, dim> pnt1;
+	NDIM<double, dim> pnt2;
+
 	for(int i = 0; i < dim; i++){
 		cout << "Var " << i << "/" << dim << ": ";
-		cin >> arr_in;
-		arr.push_back(arr_in);
+		cin >> arr_in[i];
 	}
-	pnt1.setPoint(arr);
-	pnt2.setPoint(arr);
+	pnt1.setPoint(arr_in);
+	pnt2.setPoint(arr_in);
 
 	pnt1.printPoints();
 	pnt2.printPoints();
