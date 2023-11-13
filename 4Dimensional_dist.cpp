@@ -1,6 +1,7 @@
 #include<iostream>
 #include<cmath>
 #include<iomanip>
+#include <vector>
 
 using namespace std;
 
@@ -47,71 +48,73 @@ void Dist(T object, T object2){
 	cout << "Distance between A and B = " << res << endl;
 }
 
-template<class T, int ARRAY_LEN>
+template<typename T>
 class NDIM{
 private:
-	int dimension;
-	T arr[ARRAY_LEN];
+	vector<T> c_vector;
+
 public:
 	NDIM(){}
 
-	//setter
-	void setPoint(double inp[ARRAY_LEN]){arr = inp;}
+	NDIM(vector<T> inp_vector){c_vector = inp_vector;}
 
-	//getter
-
+	//getters
+	size_t getSize(){return c_vector.size();}
 
 	//print
 	void printPoints(){
 		cout << "\nPoints: \n";
-		for(int i = 0; i < ARRAY_LEN; i++){
-			cout << "Var " << i << "/" << ARRAY_LEN << " = " << arr[i];
-		}
+		for( typename vector<T>::iterator it = c_vector.begin();it != c_vector.end(); it++)
+			cout << *it << " ";
+		cout << endl;
 	}
-
+	// istream& operator >> (istream& stream, NDMIN& dim){
+	// 	dim.pushBack()
+	// }
+	friend T Dist(NDIM& obj1, NDIM& obj2);
 };
 
-// int lol(int dim){cin>> dim; return dim}
+template<class T>
+vector<T> VectorInsert(vector<T>& inp_vector, size_t dim){	
+	T tmp;
+	for(size_t i = 0; i < dim; i++){
+		cout << "Var " << i << "/" << dim << ": ";
+		cin >> tmp;
+		inp_vector.push_back(tmp);
+	}
+	inp_vector.shrink_to_fit();
+	return inp_vector;
+}
+
+template<class T>
+T Dist(NDIM<T>& obj1, NDIM<T>& obj2){
+	T res = 0;
+	vector<T>::iterator it1 = obj1.c_vector.begin();
+	vector<T>::iterator it2 = obj2.c_vector.begin();
+	for( ; it1 != obj1.c_vector.end(); it1++, it2++){
+		res = 0;
+	}
+}
 
 int main(){
-
-	// FourD<double> point1;
-	// FourD<double> point2;
-
-	const int dim;
+	size_t dim;
 	double tmp;
-	double arr_in[dim];
+	
 
-	// // point1.setPoint(3456.345345, 45723.3646, 45734.56734, 67823.235345);
-	// // point2.setPoint(34563.235346, 567567.457632, 235346.3452, 45745.3644356);
-	// point1.setPoint(3456, 45723, 45734, 67823);
-	// point2.setPoint(34563, 567567, 235346, 45745);
-
-
-	// // point1.printPoints();
-	// // point2.printPoints();
-
-
-	// // cout << point1.getX();
-
-	// Dist(point1, point2);
-
-
+	vector<int> inp_vector;
 	cout << "What dimensional you want to use? "; cin >> dim;
 
+	VectorInsert(inp_vector, dim);
 
-	NDIM<double, dim> pnt1;
-	NDIM<double, dim> pnt2;
+	NDIM obj1(inp_vector);
 
-	for(int i = 0; i < dim; i++){
-		cout << "Var " << i << "/" << dim << ": ";
-		cin >> arr_in[i];
-	}
-	pnt1.setPoint(arr_in);
-	pnt2.setPoint(arr_in);
+	inp_vector.clear();
+	VectorInsert(inp_vector, dim);
+	NDIM obj2(inp_vector);
 
-	pnt1.printPoints();
-	pnt2.printPoints();
+	obj1.printPoints();
+
+	obj2.printPoints();
 
 
 	return 0;
