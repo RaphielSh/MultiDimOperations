@@ -10,13 +10,11 @@ class NDIM{
 private:
 	vector<T> c_vector;
 public:
-	NDIM(){this->c_vector.clear();}
+	NDIM(){}
 
-	NDIM(NDIM& other):NDIM(){
-		this->c_vector = other.c_vector;
-	}
+	NDIM(NDIM &other):c_vector(other.c_vector){};
 
-	NDIM(vector<T> inp_vector){c_vector = inp_vector;}
+	NDIM(vector<T> &inp_vector):c_vector(inp_vector){};
 
 	//print
 	void printPoints(){
@@ -62,8 +60,6 @@ int main(){
 
 	NDIM obj1(inp_vector);
 	NDIM obj1_c(obj1);
-
-	inp_vector.clear();
 
 	obj1.printPoints();
 	obj1_c.printPoints();
