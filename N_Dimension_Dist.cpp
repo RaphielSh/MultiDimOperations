@@ -10,7 +10,11 @@ class NDIM{
 private:
 	vector<T> c_vector;
 public:
-	NDIM(){}
+	NDIM(){this->c_vector.clear();}
+
+	NDIM(NDIM& other):NDIM(){
+		this->c_vector = other.c_vector;
+	}
 
 	NDIM(vector<T> inp_vector){c_vector = inp_vector;}
 
@@ -57,15 +61,14 @@ int main(){
 	VectorInsert(inp_vector, dim);
 
 	NDIM obj1(inp_vector);
+	NDIM obj1_c(obj1);
 
 	inp_vector.clear();
-	VectorInsert(inp_vector, dim);
-	NDIM obj2(inp_vector);
 
 	obj1.printPoints();
-	obj2.printPoints();
+	obj1_c.printPoints();
 
-	int res = Dist(obj1, obj2);
+	int res = Dist(obj1, obj1_c);
 
 	cout << "\nDist is:" << res << endl;
 
